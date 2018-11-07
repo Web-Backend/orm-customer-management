@@ -40,7 +40,7 @@ public class CustomerController {
         return new ModelAndView("/customer/list", "customers", customers);
     }
 
-    @GetMapping("/customer/{id}/edit")
+    @GetMapping("/edit-customer/{id}")
     public ModelAndView showEditForm(@PathVariable Long id) {
         Customer customer = customerService.findById(id);
         if (customer != null) {
@@ -48,5 +48,13 @@ public class CustomerController {
         } else {
             return new ModelAndView("error-404");
         }
+    }
+
+    @PostMapping("edit-customer")
+    public ModelAndView editCustomer(@ModelAttribute("customer") Customer customer) {
+        customerService.save(customer);
+        ModelAndView modelAndView = new ModelAndView("/customer/edit", "customer", customer);
+        modelAndView.addObject("message", "sick enough to die");
+        return modelAndView;
     }
 }
