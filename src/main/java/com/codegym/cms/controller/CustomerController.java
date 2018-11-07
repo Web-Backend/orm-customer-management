@@ -57,4 +57,16 @@ public class CustomerController {
         modelAndView.addObject("message", "sick enough to die");
         return modelAndView;
     }
+
+    @GetMapping("/delete-customer/{id}")
+    public ModelAndView showDeleteForm(@PathVariable Long id) {
+        return new ModelAndView("/customer/delete", "customer", customerService.findById(id));
+    }
+
+    @PostMapping("delete-customer")
+    public ModelAndView deleteCustomer(@ModelAttribute("customer") Customer customer) {
+        customerService.remove(customer.getId());
+        return new ModelAndView("/customer/list", "customers", customerService.findAll());
+    }
+
 }
