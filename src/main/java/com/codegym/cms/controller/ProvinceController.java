@@ -48,4 +48,17 @@ public class ProvinceController {
         return modelAndView;
     }
 
+    @GetMapping("/delete-province/{id}")
+    public ModelAndView deleteProvinceForm(@PathVariable("id") Long id) {
+        return new ModelAndView("/province/delete", "province", provinceService.findById(id));
+    }
+
+    @PostMapping("/delete-province")
+    public ModelAndView deleteProvince(@ModelAttribute("province") Province province) {
+        provinceService.remove(province.getId());
+        ModelAndView modelAndView = new ModelAndView("/province/list", "provinces",provinceService.findAll());
+        modelAndView.addObject("message", "deleted successfully");
+        return modelAndView;
+    }
+
 }
