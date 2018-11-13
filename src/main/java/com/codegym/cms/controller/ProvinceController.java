@@ -34,4 +34,18 @@ public class ProvinceController {
         modelAndView.addObject("message", "New province created successfully");
         return modelAndView;
     }
+
+    @GetMapping("/edit-province/{id}")
+    public ModelAndView editProvinceForm(@PathVariable("id") Long id) {
+        return new ModelAndView("/province/edit", "province", provinceService.findById(id));
+    }
+
+    @PostMapping("/edit-province")
+    public ModelAndView updateProvince(@ModelAttribute("province") Province province) {
+        provinceService.save(province);
+        ModelAndView modelAndView = new ModelAndView("/province/edit", "message", "updated successfully");
+        modelAndView.addObject("province", province);
+        return modelAndView;
+    }
+
 }
