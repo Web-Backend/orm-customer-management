@@ -12,6 +12,18 @@ public class Customer {
     private String firstName;
     private String lastName;
 
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "province_id")
+    private Province province;
+
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
