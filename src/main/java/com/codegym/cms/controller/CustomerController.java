@@ -36,7 +36,7 @@ public class CustomerController {
 
     @GetMapping("/customers")
     public ModelAndView listCustomer() {
-        List<Customer> customers = customerService.findAll();
+        Iterable<Customer> customers = customerService.findAll();
         return new ModelAndView("/customer/list", "customers", customers);
     }
 
